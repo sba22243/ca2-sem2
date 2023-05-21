@@ -9,13 +9,13 @@ import time, os
 topic = "vaccine"
 
 # Read the directory and find the bz2 files containint the tweets
-dataset_path = r'/home/mara/datasets/twitter'
+dataset_path = r'/home/hduser/dataset/twitter/master'
 
 
 # Size of the batch 
 num_files = 2
 
-destination_folder = f'/home/mara/datasets/topic'
+destination_folder = f'/home/hduser/dataset/twitter/topic'
 
 spark_conf = SparkConf().setAppName("sba22243-step1").set("spark.sql.debug.maxToStringFields", 100)
 
@@ -44,10 +44,21 @@ def filter_tweets(month, filename):
         dataframe_result = dataframe.filter((col('lang') == 'en') & col('text').rlike(f'(?i){topic}'))
         
         # extract only the relevant columns
-        dataframe_result = dataframe_result.select("created_at", "text","timestamp_ms")
+        dataframe_result = dataframe_result.select("created_at", "retweeted", "text", "timestamp_ms")
         
         print(f'writing {dataframe_result.count()} tweets from folder {folder_to_read}')
         dataframe_result.write.mode("append").json('file:///' + destination_folder + '/' + filename + '.json')
 
 
+filter_tweets('2020/06','vaccine-June-2020')
+filter_tweets('2020/07','vaccine-July-2020')
+filter_tweets('2020/08','vaccine-August-2020')
+filter_tweets('2020/09','vaccine-September-2020')
+filter_tweets('2020/10','vaccine-October-2020')
+filter_tweets('2020/11','vaccine-November-2020')
+filter_tweets('2020/12','vaccine-December-2020')
 filter_tweets('2021/01','vaccine-January-2021')
+filter_tweets('2021/02','vaccine-February-2021')
+filter_tweets('2021/03','vaccine-March-2021')
+filter_tweets('2021/04','vaccine-April-2021')
+filter_tweets('2021/05','vaccine-May-2021')
