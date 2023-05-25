@@ -1,4 +1,4 @@
-from pyspark import SparkContext, SparkConf
+cd ..from pyspark import SparkContext, SparkConf
 from pyspark.sql import SQLContext
 from pyspark.sql.functions import col
 import time, os
