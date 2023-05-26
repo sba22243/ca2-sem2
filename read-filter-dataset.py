@@ -1,7 +1,8 @@
-cd ..from pyspark import SparkContext, SparkConf
+from pyspark import SparkContext, SparkConf
 from pyspark.sql import SQLContext
 from pyspark.sql.functions import col
 import time, os
+
 
 # Parameters
 
@@ -33,7 +34,7 @@ def filter_tweets(month, filename):
                 folder_list.append(subdir + '/*.json.bz2')
                 break
                 
-    print(f'Num of files {len(folder_list)}')
+    print(r'Num of files {len(folder_list)}')
     print(folder_list)
 
     # Read a batch of files in parallel
